@@ -28,3 +28,65 @@ This repository is dedicated to all things Java backend development. It covers t
 Java remains one of the most widely-used languages for backend development due to its robustness, rich ecosystem, extensive libraries, and enterprise-grade frameworks. Mastering Java backend development opens doors to building everything from small APIs to complex distributed systems.
 
 ## ⭐ Star this repo if you want to grow as a Java backend developer!
+
+
+
+
+| Name | Link |
+|------|------|
+| User Authentication & Authorization Service | |
+| API Gateway (Spring Cloud Gateway) | |
+| Configuration Server (Spring Cloud Config) | |
+| Service Discovery (Eureka/Kubernetes Service) | |
+| Circuit Breaker & Resilience Demo | |
+| Inventory Management (Relational DB) | |
+| Event Sourcing + CQRS Service | |
+| High-Throughput Log Ingestor (NoSQL) | |
+| Time Series Storage Backend | |
+| Search Service (Elasticsearch) | |
+| Order Processing Pipeline (Kafka) | |
+| Transactional Outbox Pattern Demo | |
+| Email/SMS Notification Service | |
+| Payment Processing Microservice | |
+| Real-time Chat Server (WebSocket + STOMP) | |
+| Audit & Compliance Service | |
+| Distributed Tracing Integration | |
+| Prometheus Metrics + Grafana Dashboards | |
+| Feature Flag Service | |
+| Secrets Management Integration | |
+| E-commerce Platform Backend | |
+| Booking/Reservation System | |
+| Billing & Invoicing System | |
+| Customer Relationship Management (CRM) Backend | |
+| Warehouse Management System | |
+| Task Scheduler & Workflow Engine | |
+| Document Management + OCR Pipeline | |
+| Reporting & Data Export Service | |
+| Role-Based Access Control (RBAC) Admin Console API | |
+| API Rate Limiter Service | |
+| Model Serving API (ML model with Spring Boot) | |
+| Data Pipeline Orchestrator (ETL) | |
+| A/B Testing Server | |
+| Recommendation Engine Backend (batch + online) | |
+| Anomaly Detection Alerting Service | |
+| Microservices Reference App (Full stack) | |
+| Serverless Spring Boot (AWS Lambda via Spring Cloud Function) | |
+| GraphQL Backend using Spring for GraphQL | |
+| gRPC Microservice with Spring Boot | |
+| Multi-tenant SaaS Backend | |
+| Contract Testing Platform (Pact) | |
+| End-to-End Integration Test Harness | |
+| Static Analysis & Code Quality Pipeline | |
+| Chaos Engineering Service | |
+| Blue/Green & Canary Deployment Demo | |
+| IoT Device Telemetry Ingestor | |
+| Content Moderation Pipeline | |
+| Localization & Internationalization Service | |
+| Server Push (SSE) Notifications Backend | |
+| Legal & Consent Management Service | |
+
+
+
+
+
+
