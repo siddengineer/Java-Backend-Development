@@ -5,7 +5,7 @@ This repository is dedicated to all things Java backend development. It covers t
 
 ## 🔥 Topics Covered
 
-- Introduction to Java backend ecosystem  
+- Introduction to Java backend ecosystem  https://github.com/siddengineer/Java-Backend-Development/blob/main/%F0%9F%8C%90%20Introduction%20to%20Java%20Backend%20Ecosystem
 - Overview of popular frameworks like Spring Boot, Jakarta EE, and Micronaut
 - RESTful API design and development principles
 - Database integration using JPA/Hibernate and SQL/NoSQL options
