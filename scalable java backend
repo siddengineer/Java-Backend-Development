@@ -1,0 +1,423 @@
+🧩 1. Spring Core & IoC
+
+Inversion of Control (IoC)
+
+Dependency Injection (DI)
+
+Bean Lifecycle
+
+Bean Scopes
+
+@Component, @Service, @Repository
+
+@Autowired
+
+@Qualifier
+
+@Primary
+
+@Value
+
+@Configuration
+
+@Bean
+
+@Lazy
+
+@PostConstruct / @PreDestroy
+
+Environment Abstraction
+
+Profiles (@Profile)
+
+PropertySource
+
+Externalized Configuration
+
+ApplicationContext
+
+BeanFactory
+
+Application Events
+
+🌱 2. Spring Boot Core
+
+Spring Boot Auto-Configuration
+
+Starter Dependencies
+
+Spring Boot Annotations
+
+application.properties / application.yml
+
+CommandLineRunner
+
+ApplicationRunner
+
+Banner Customization
+
+Spring Boot DevTools
+
+Logging (SLF4J + Logback)
+
+Actuator Endpoints
+
+🌐 3. RESTful API Development
+
+@RestController
+
+@RequestMapping
+
+@GetMapping / @PostMapping / @PutMapping / @DeleteMapping
+
+@PathVariable
+
+@RequestParam
+
+@RequestBody
+
+ResponseEntity
+
+@ResponseStatus
+
+Exception Handling (ControllerAdvice)
+
+Validation (@Valid, @NotNull, @Size)
+
+Custom Error Response
+
+JSON Serialization (Jackson)
+
+@JsonIgnore / @JsonProperty
+
+Global Exception Handling
+
+HTTP Status Codes
+
+CORS Configuration
+
+Versioning APIs
+
+Swagger / OpenAPI Integration
+
+Pagination and Sorting
+
+HATEOAS
+
+💾 4. Spring Data JPA & Databases
+
+JPA Entities
+
+@Entity, @Id, @GeneratedValue
+
+@Table, @Column
+
+Relationships (@OneToMany, @ManyToOne, etc.)
+
+Cascade Types
+
+Fetch Types (Lazy/Eager)
+
+JPA Repositories
+
+CrudRepository / JpaRepository
+
+Derived Query Methods
+
+@Query Annotation
+
+JPQL
+
+Native Queries
+
+Transactions (@Transactional)
+
+Entity Lifecycle Callbacks
+
+Auditing (CreatedDate, LastModifiedDate)
+
+Database Initialization (schema.sql, data.sql)
+
+Flyway / Liquibase
+
+Pagination in JPA
+
+Criteria API
+
+Specification API
+
+🔒 5. Spring Security
+
+Authentication & Authorization
+
+SecurityFilterChain
+
+InMemoryUserDetailsManager
+
+BCryptPasswordEncoder
+
+Role-based Access Control
+
+JWT Authentication
+
+Custom UserDetailsService
+
+CORS + CSRF
+
+OAuth2 Resource Server
+
+OAuth2 Client
+
+Method Level Security (@PreAuthorize)
+
+SecurityContextHolder
+
+Exception Handling in Security
+
+Refresh Tokens
+
+Stateless Security
+
+Secure Password Storage
+
+📨 6. Messaging & Async Processing
+
+@Async Annotation
+
+ThreadPoolTaskExecutor
+
+Event Publishing
+
+@EventListener
+
+RabbitMQ Integration
+
+Kafka Integration
+
+JMS (ActiveMQ)
+
+Message Listeners
+
+Retry Mechanisms
+
+Dead Letter Queue
+
+Distributed Messaging
+
+🧠 7. Spring Boot Microservices
+
+Microservice Architecture
+
+Service Discovery (Eureka)
+
+API Gateway (Spring Cloud Gateway)
+
+Config Server
+
+Centralized Configuration
+
+Distributed Tracing
+
+Sleuth
+
+Zipkin
+
+Feign Client
+
+RestTemplate vs WebClient
+
+Circuit Breaker (Resilience4j)
+
+Rate Limiting
+
+Load Balancing
+
+Fault Tolerance
+
+Service Registry Patterns
+
+Service Mesh Concept
+
+Externalized Secrets (Vault)
+
+API Gateway Filters
+
+Microservice Communication Patterns
+
+☁️ 8. Cloud & Deployment
+
+Dockerizing Spring Boot
+
+Dockerfile Optimization
+
+Docker Compose
+
+Container Networking
+
+Kubernetes Basics
+
+Deployment YAMLs
+
+ConfigMaps & Secrets
+
+Services & Ingress
+
+Horizontal Pod Autoscaling
+
+Spring Boot on Kubernetes
+
+Cloud Providers (AWS, Azure, GCP)
+
+AWS Elastic Beanstalk
+
+AWS ECS / EKS
+
+Load Balancers
+
+Auto Scaling
+
+Logging in Cloud (CloudWatch / Stackdriver)
+
+CI/CD with Jenkins
+
+CI/CD with GitHub Actions
+
+Environment Promotion (Dev/Staging/Prod)
+
+Blue-Green Deployment
+
+Canary Deployment
+
+Infrastructure as Code (Terraform)
+
+🗂 9. Performance & Scalability
+
+Caching (Spring Cache)
+
+Redis Integration
+
+Ehcache / Caffeine
+
+Cache Eviction Policies
+
+Connection Pooling (HikariCP)
+
+Lazy Loading Optimization
+
+Query Optimization
+
+Batch Processing (Spring Batch)
+
+Async Processing
+
+Thread Management
+
+Non-blocking I/O (WebFlux)
+
+Reactive Streams
+
+Backpressure Handling
+
+Load Testing (JMeter, Gatling)
+
+Metrics & Monitoring
+
+Prometheus Integration
+
+Grafana Dashboards
+
+Health Checks
+
+Memory Profiling
+
+CPU Profiling
+
+GC Tuning
+
+Horizontal vs Vertical Scaling
+
+📦 10. Architecture & Design Patterns
+
+Layered Architecture
+
+Hexagonal Architecture
+
+Clean Architecture
+
+Domain-Driven Design (DDD)
+
+CQRS Pattern
+
+Event Sourcing
+
+Repository Pattern
+
+Factory Pattern
+
+Builder Pattern
+
+Singleton Pattern
+
+Strategy Pattern
+
+Observer Pattern
+
+Proxy Pattern
+
+Decorator Pattern
+
+Template Pattern
+
+Adapter Pattern
+
+Dependency Inversion
+
+SOLID Principles
+
+Twelve-Factor App Principles
+
+API Gateway Pattern
+
+🧰 11. Testing & Quality
+
+JUnit 5
+
+Mockito
+
+Spring Boot Test
+
+@WebMvcTest
+
+@DataJpaTest
+
+Integration Testing
+
+MockMvc
+
+Testcontainers
+
+Contract Testing
+
+Postman & Newman
+
+Load Testing
+
+Test Coverage Tools (JaCoCo)
+
+SonarQube Analysis
+
+CI/CD Test Automation
+
+Unit vs Integration Tests
+
+🚀 12. Production-Readiness
+
+Centralized Logging (ELK Stack)
+
+Distributed Tracing
+
+Monitoring Dashboards
+
+Alerting
+
+Graceful Shutdown
