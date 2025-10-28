@@ -1,0 +1,564 @@
+🌱 What is IoC (Inversion of Control)?
+
+Inversion of Control (IoC) means —
+👉 You don’t create or control your objects (classes) yourself.
+👉 Instead, Spring (the framework) creates them and gives them to you.
+
+So, the control is inverted — from you → Spring.
+
+🧱 Normal Java Code (Without IoC)
+
+Let’s say you have a service that saves a user.
+
+class UserRepository {
+    void saveUser(String name) {
+        System.out.println("User saved: " + name);
+    }
+}
+
+class UserService {
+    private UserRepository userRepository;
+
+    public UserService() {
+        // Creating object manually
+        userRepository = new UserRepository();
+    }
+
+    void registerUser(String name) {
+        userRepository.saveUser(name);
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        UserService userService = new UserService();
+        userService.registerUser("Alice");
+    }
+}
+
+
+🧩 Problem:
+
+You created UserRepository yourself using new.
+
+If you want to change or test it, you must edit your code.
+
+This makes it tightly coupled (hard to change).
+
+✅ IoC (With Spring Framework)
+
+In Spring, you don’t use new.
+You just tell Spring what you need, and it gives it to you automatically.
+
+Example:
+import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
+import org.springframework.beans.factory.annotation.Autowired;
+
+@Repository
+class UserRepository {
+    void saveUser(String name) {
+        System.out.println("User saved: " + name);
+    }
+}
+
+@Service
+class UserService {
+
+    private UserRepository userRepository;
+
+    // Spring will automatically provide this object
+    @Autowired
+    public UserService(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
+
+    void registerUser(String name) {
+        userRepository.saveUser(name);
+    }
+}
+
+Main Class (Spring Boot)
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.ApplicationContext;
+
+@SpringBootApplication
+public class IocExampleApp {
+    public static void main(String[] args) {
+        // Start Spring container
+        ApplicationContext context = SpringApplication.run(IocExampleApp.class, args);
+
+        // Get the object (Spring creates it)
+        UserService userService = context.getBean(UserService.class);
+        userService.registerUser("Alice");
+    }
+}
+
+Output:
+User saved: Alice
+
+🌸 What Happened Here?
+
+You didn’t use new anywhere.
+
+Spring created UserRepository and gave it to UserService.
+
+Spring managed everything for you.
+
+That’s Inversion of Control —
+you don’t control object creation anymore; Spring controls it.
+
+🧩 Why IoC Is Good
+Problem Without IoC	Benefit With IoC
+You create objects manually	Spring creates and gives them automatically
+Hard to change code	Easy to replace one class with another
+Difficult to test	Easy to test with fake/mock classes
+Code is tightly connected	Code is loosely connected (flexible)
+🌼 Example with Interface (More Flexible)
+interface UserRepository {
+    void saveUser(String name);
+}
+
+@Repository
+class DatabaseUserRepository implements UserRepository {
+    public void saveUser(String name) {
+        System.out.println("Saved to Database: " + name);
+    }
+}
+
+@Service
+class UserService {
+    private final UserRepository userRepository;
+
+    @Autowired
+    public UserService(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
+
+    void registerUser(String name) {
+        userRepository.saveUser(name);
+    }
+}
+
+
+If later you want to store in memory instead of a database, you can write:
+
+@Repository
+class InMemoryUserRepository implements UserRepository {
+    public void saveUser(String name) {
+        System.out.println("Saved in memory: " + name);
+    }
+}
+
+
+Spring will inject the new one — no code change in UserService needed.
+
+💡 In Short
+Concept	Meaning
+IoC (Inversion of Control)	Spring controls object creation and wiring
+DI (Dependency Injection)	Spring gives your class the objects it needs
+IoC Container	The part of Spring that manages all your objects (beans)
+Bean	A managed object created by Spring
+🖼️ Simple Diagram
+Without IoC:                   With IoC (Spring):
+-------------                   ------------------
+UserService --> new Repo()      Spring Container --> gives Repo to UserService
+
+
+
+🌱 Step 1: You mark your classes with special annotations
+
+When you write:
+
+@Repository
+class UserRepository { ... }
+
+@Service
+class UserService { ... }
+
+
+You’re telling Spring:
+
+“Hey Spring, please manage these classes for me.”
+
+So you don’t create them.
+You just mark them — like giving them a tag.
+
+⚙️ Step 2: Spring starts (Spring Boot Application)
+
+When you run this line:
+
+ApplicationContext context = SpringApplication.run(IocExampleApp.class, args);
+
+
+👉 Spring starts its IoC container (also called ApplicationContext).
+👉 It scans your project for these annotations:
+@Component, @Service, @Repository, @Controller, etc.
+
+🧱 Step 3: Spring creates the objects (beans)
+
+Spring sees your tagged classes and creates objects for them — automatically.
+
+So internally it does something like:
+
+UserRepository repo = new UserRepository();
+UserService service = new UserService(repo);
+
+
+But you don’t write that code — Spring does it inside the container.
+
+It stores these objects inside its memory (called the “Spring Bean Container”).
+
+📦 Step 4: You ask Spring for objects
+
+When you write:
+
+UserService userService = context.getBean(UserService.class);
+
+
+You are asking Spring:
+
+“Hey, please give me the UserService object you created.”
+
+Spring looks inside its container and gives you the ready-made object, with all dependencies already set up.
+
+💡 That’s why it’s called “Inversion of Control”
+
+Normally (in plain Java):
+
+You control object creation → new UserRepository()
+
+With Spring:
+
+Spring controls it → You just declare what you need.
+
+That’s the inversion (the control flips).
+
+🧠 Summary (in plain English)
+Step	What Happens
+1	You mark classes with @Service, @Repository, etc.
+2	Spring Boot starts and scans your project
+3	Spring automatically creates objects (beans)
+4	Spring injects one bean into another (using @Autowired)
+5	You just use them — no new keyword needed!
+🧩 Visual Flow
+Your code:
+@Service class UserService { ... }
+@Repository class UserRepository { ... }
+
+Spring Boot starts →
+  ↓
+Scans classes →
+  ↓
+Creates objects (beans) →
+  ↓
+Connects dependencies (@Autowired) →
+  ↓
+Gives you ready-to-use objects!
+
+
+
+In Spring,
+✅ You don’t create objects manually.
+✅ Spring creates objects (beans) for you.
+✅ By default, it creates only one object (bean) per class — called a singleton bean.
+
+🧠 What is a Singleton Bean?
+
+When Spring sees a class like this:
+
+@Service
+public class UserService {
+}
+
+
+Spring creates only one object of UserService in the entire application —
+and reuses that same object everywhere.
+
+So if you inject UserService into 10 other classes,
+👉 all 10 will get the same instance.
+
+💡 Why does Spring do this?
+
+Because:
+
+It saves memory 🧠
+
+Makes your app faster ⚡
+
+Most services need only one shared object.
+
+🧩 But what if you want more than one object?
+
+Good question — this is where bean scope comes in.
+
+By default, Spring beans are singleton.
+But you can change the scope to make Spring create new objects every time.
+
+🔁 Example: @Scope("prototype")
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
+
+@Component
+@Scope("prototype")  // 👈 tells Spring to create a new object each time
+public class MyClass {
+    public MyClass() {
+        System.out.println("MyClass object created!");
+    }
+}
+
+Main Class:
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.ApplicationContext;
+
+@SpringBootApplication
+public class ScopeExampleApp {
+    public static void main(String[] args) {
+        ApplicationContext context = SpringApplication.run(ScopeExampleApp.class, args);
+
+        MyClass obj1 = context.getBean(MyClass.class);
+        MyClass obj2 = context.getBean(MyClass.class);
+        MyClass obj3 = context.getBean(MyClass.class);
+
+        System.out.println(obj1 == obj2); // false
+        System.out.println(obj2 == obj3); // false
+    }
+}
+
+Output:
+MyClass object created!
+MyClass object created!
+MyClass object created!
+false
+false
+
+
+🧩 Explanation:
+
+Because of @Scope("prototype"), Spring creates a new object each time you call getBean().
+
+So you get different objects, not just one.
+
+🔢 Bean Scopes in Spring
+Scope	Meaning	Example
+singleton	Only one object per Spring container (default)	Most common
+prototype	A new object each time you request it	For custom, short-lived objects
+request	One object per HTTP request (web apps)	For web controllers
+session	One object per HTTP session	For login/session data
+application	One object per ServletContext	For shared web resources
+🧠 Summary
+Question	Answer
+Who creates the object?	Spring (not you)
+How many objects per class by default?	One (singleton)
+Can we have more objects?	Yes — use @Scope("prototype")
+What manages these objects?	The Spring IoC Container
+🔍 Simple Example Summary
+@Component
+@Scope("prototype")
+class Car {
+    public Car() {
+        System.out.println("Car created!");
+    }
+}
+
+
+Output when you ask for multiple beans:
+
+Car created!
+Car created!
+Car created!
+
+🌐 Real-Life Example: “User Registration Website”
+
+Imagine you are making a website where users can:
+
+Register with name & email
+
+Their details are saved to a database
+
+We’ll see how IoC (Inversion of Control) works behind the scenes.
+
+🧩 Folder Structure (Spring Boot Project)
+user-registration/
+│
+├── src/main/java/com/example/userregistration/
+│   ├── UserRegistrationApplication.java   👈 main file
+│   ├── controller/
+│   │   └── UserController.java            👈 handles web requests
+│   ├── service/
+│   │   └── UserService.java               👈 business logic
+│   ├── repository/
+│   │   └── UserRepository.java            👈 database operations
+│   └── model/
+│       └── User.java                      👈 data model
+│
+└── pom.xml
+
+💡 Step-by-Step How IoC Works Here
+1️⃣ Model Layer
+package com.example.userregistration.model;
+
+public class User {
+    private String name;
+    private String email;
+
+    // constructor, getters, setters
+}
+
+2️⃣ Repository Layer
+package com.example.userregistration.repository;
+
+import org.springframework.stereotype.Repository;
+import com.example.userregistration.model.User;
+
+@Repository  // 👈 Tells Spring: "Make an object of this class"
+public class UserRepository {
+    public void save(User user) {
+        System.out.println("Saving user to database: " + user.getName());
+    }
+}
+
+
+✅ When the app starts, Spring scans your code and sees @Repository.
+👉 It automatically creates an object (bean) of UserRepository.
+
+3️⃣ Service Layer
+package com.example.userregistration.service;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import com.example.userregistration.model.User;
+import com.example.userregistration.repository.UserRepository;
+
+@Service  // 👈 Another bean created by Spring
+public class UserService {
+
+    private final UserRepository userRepository;
+
+    @Autowired  // 👈 Spring will inject the UserRepository object here
+    public UserService(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
+
+    public void registerUser(String name, String email) {
+        User user = new User();
+        user.setName(name);
+        user.setEmail(email);
+        userRepository.save(user);
+    }
+}
+
+
+✅ Spring creates UserService.
+✅ It automatically inserts the UserRepository bean inside it (that’s IoC in action 💥).
+
+4️⃣ Controller Layer (Handles Website Requests)
+package com.example.userregistration.controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+import com.example.userregistration.service.UserService;
+
+@RestController  // 👈 Marks it as a web controller (also a bean)
+@RequestMapping("/users")
+public class UserController {
+
+    private final UserService userService;
+
+    @Autowired  // 👈 Spring injects the UserService bean here
+    public UserController(UserService userService) {
+        this.userService = userService;
+    }
+
+    @PostMapping("/register")
+    public String registerUser(@RequestParam String name, @RequestParam String email) {
+        userService.registerUser(name, email);
+        return "User registered successfully!";
+    }
+}
+
+
+✅ Spring creates UserController.
+✅ It automatically injects the UserService object into it.
+
+5️⃣ Main Application Class
+package com.example.userregistration;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication  // 👈 enables component scanning & IoC container
+public class UserRegistrationApplication {
+    public static void main(String[] args) {
+        SpringApplication.run(UserRegistrationApplication.class, args);
+    }
+}
+
+
+✅ This starts the Spring IoC container (ApplicationContext).
+✅ It scans all packages for @Controller, @Service, @Repository etc.
+✅ Creates objects (beans).
+✅ Connects them together automatically.
+
+⚡ How It Works When You Open the Website
+
+1️⃣ User hits the API endpoint:
+
+POST http://localhost:8080/users/register?name=Alice&email=alice@gmail.com
+
+
+2️⃣ Spring finds the UserController → it’s already created by IoC.
+3️⃣ UserController calls UserService → IoC already injected it.
+4️⃣ UserService calls UserRepository → IoC already injected it.
+5️⃣ UserRepository saves the data (prints output).
+
+🪄 You never used new anywhere.
+Spring created and connected everything for you.
+
+🧠 Behind the Scenes (IoC Flow)
+SpringApplication.run(...) → starts IoC container
+      ↓
+Scans all packages for @Component, @Service, @Repository, @Controller
+      ↓
+Creates objects (beans)
+      ↓
+Finds dependencies marked with @Autowired
+      ↓
+Injects the right beans into each other
+      ↓
+App is ready to handle requests 🚀
+
+🧩 Output Example (Console)
+
+When you send a request:
+
+Saving user to database: Alice
+
+
+Response:
+
+User registered successfully!
+
+💬 Real-Life Analogy
+
+Imagine a restaurant kitchen 🍳
+
+Role	In Java Code	In Real Life
+Chef	Your code (UserController)	Orders dishes
+Kitchen manager	Spring IoC Container	Assigns tasks automatically
+Cook	Beans (UserService, UserRepository)	Prepares the dish
+Ingredients	Dependencies	Provided automatically
+
+You just say “make pasta” →
+The manager (Spring) brings the right cook, ingredients, and tools —
+you don’t go create them yourself.
+
+🧠 Summary
+Concept	Meaning in Website Example
+IoC	Spring creates and manages all your classes
+DI (Dependency Injection)	Spring automatically gives each class the objects it needs
+Bean	Object created by Spring (like UserService, UserRepository)
+@Autowired	Used to inject one bean into another
+@Scope	Controls how many objects of a bean Spring should create
