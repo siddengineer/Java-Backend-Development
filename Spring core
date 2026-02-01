@@ -1,0 +1,52 @@
+Objects in java 
+the object in java are the instances of the class that represent the real world entites and they contain the state (data) and the behaviour (method) and the identity 
+
+
+class Student {
+    String name;
+    int id;
+    
+    void study(){
+        System.out.println(id+" "name+" is studying");
+    }
+}
+public class Main {
+    public static void main(String[] args){
+        Student s1 = new Student();
+        s1.name = "Rahul";
+        s1.id = 1;
+        s1.study();
+    }
+}
+
+
+Student class
+@Component
+class Student {
+    String name;
+    int id;
+
+    void study() {
+        System.out.println(id + " " + name + " is studying");
+    }
+}
+
+Main (Spring way)
+ApplicationContext context =
+        new AnnotationConfigApplicationContext(AppConfig.class);
+
+Student s1 = context.getBean(Student.class);
+s1.study();
+
+
+Without Spring:
+You control object creation
+Classes are tightly coupled
+Hard to test
+Hard to scale
+
+With Spring Core:
+Loose coupling
+Easy testing (mock objects)
+Centralized configuration
+Cleaner architecture
