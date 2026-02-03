@@ -1,0 +1,106 @@
+🧠 What is BeanFactory (in simple words)?
+
+BeanFactory is a container that:
+
+Creates objects (beans)
+
+Manages their lifecycle
+
+Injects dependencies
+
+Gives you the object when you ask for it
+
+👉 Instead of you creating objects, the container does it.
+
+That is IoC at framework level.
+
+🔹 Key Difference
+Before	With BeanFactory
+new Student()	container.getBean(Student.class)
+You manage objects	Container manages objects
+Manual wiring	Automatic wiring
+🧩 Step 1: Same interfaces (NO change)
+interface Printer {
+    void print(int id, String name);
+}
+
+class ConsolePrinter implements Printer {
+    public void print(int id, String name) {
+        System.out.println(id + " " + name);
+    }
+}
+
+🧩 Step 2: Student bean (same IoC version)
+class Student {
+    int id;
+    String name;
+    Printer printer;
+
+    public Student(int id, String name, Printer printer) {
+        this.id = id;
+        this.name = name;
+        this.printer = printer;
+    }
+
+    void display() {
+        printer.print(id, name);
+    }
+}
+
+🧩 Step 3: Introduce BeanFactory (Spring)
+
+Now comes the actual BeanFactory part.
+
+XML Configuration (beans.xml)
+<beans>
+    <bean id="printer" class="ConsolePrinter"/>
+
+    <bean id="student" class="Student">
+        <constructor-arg value="10"/>
+        <constructor-arg value="Alice"/>
+        <constructor-arg ref="printer"/>
+    </bean>
+</beans>
+
+
+👉 Container decides:
+
+Which class to create
+
+What constructor to use
+
+What dependency to inject
+
+🧩 Step 4: Use BeanFactory in Main
+import org.springframework.beans.factory.BeanFactory;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+public class Main {
+    public static void main(String[] args) {
+        BeanFactory factory =
+            new ClassPathXmlApplicationContext("beans.xml");
+
+        Student s1 = (Student) factory.getBean("student");
+        s1.display();
+    }
+}
+
+🎯 Why THIS is BeanFactory (important)
+
+✔ Objects are NOT created using new
+✔ Container manages object creation
+✔ Dependencies injected automatically
+✔ Lifecycle handled by container
+
+👉 This is Spring IoC container using BeanFactory
+
+🧠 One-line interview explanation
+
+“BeanFactory is Spring’s IoC container that creates and manages beans and injects dependencies when requested.”
+
+🧠 BeanFactory vs ApplicationContext (must know)
+BeanFactory	ApplicationContext
+Lazy initialization	Eager initialization
+Lightweight	Feature-rich
+Low memory	Higher memory
+Core container	Enterprise container
