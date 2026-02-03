@@ -1,0 +1,84 @@
+What is IoC (in very simple words)?
+
+Inversion of Control (IoC) means:
+
+“The class does NOT control how its dependencies are created.
+Control is inverted to an external entity.”
+
+Key idea:
+
+Object does not decide what it needs
+
+Something outside decides and provides it
+
+👉 DI is one way to achieve IoC, but IoC is the bigger concept.
+
+❌ Your current code (NO IoC)
+Student s1 = new Student(10, "Alice");
+
+
+Here:
+
+Main decides everything
+
+Student depends only on values
+
+No external control flow
+
+❌ No IoC demonstrated
+
+✅ Step 1: Introduce a dependency (required for IoC)
+
+Let’s add a behavior-based dependency.
+
+interface Printer {
+    void print(int id, String name);
+}
+
+class ConsolePrinter implements Printer {
+    public void print(int id, String name) {
+        System.out.println(id);
+        System.out.println(name);
+    }
+}
+
+✅ Step 2: Student depends on abstraction (NOT implementation)
+class Student {
+    int id;
+    String n;
+    Printer printer;   // dependency
+
+    public Student(int id, String n, Printer printer) {
+        this.id = id;
+        this.n = n;
+        this.printer = printer;
+    }
+
+    void display() {
+        printer.print(id, n);
+    }
+}
+
+🔑 Important
+
+Student does NOT create Printer
+
+Student does NOT know which Printer it is using
+
+✔ Control is inverted
+
+✅ Step 3: External entity controls wiring (IoC)
+public class Main {
+    public static void main(String[] args) {
+        Printer printer = new ConsolePrinter(); // control here
+        Student s1 = new Student(10, "Alice", printer);
+        s1.display();
+    }
+}
+
+🎯 WHY this demonstrates IoC
+Aspect	Before	After
+Who creates dependency	Nobody	External code
+Who controls wiring	Student	Main (outside)
+Dependency type	None	Interface
+Control flow	Internal	Inverted
