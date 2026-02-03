@@ -1,0 +1,104 @@
+🧠 What is ApplicationContext (in simple words)?
+
+ApplicationContext is a powerful IoC container in Spring that:
+
+Creates and manages beans
+
+Injects dependencies
+
+Manages lifecycle
+
+Provides enterprise features
+
+👉 Think of it as:
+
+BeanFactory + extra superpowers
+
+🔹 Why ApplicationContext exists (motivation)
+
+BeanFactory:
+
+Lazy
+
+Minimal
+
+Core container
+
+ApplicationContext:
+
+Eager loading
+
+Events
+
+Internationalization (i18n)
+
+AOP
+
+Annotations
+
+Environment & profiles
+
+👉 Real Spring apps use ApplicationContext
+
+🧩 Step 1: SAME domain classes (no change)
+interface Printer {
+    void print(int id, String name);
+}
+
+class ConsolePrinter implements Printer {
+    public void print(int id, String name) {
+        System.out.println(id + " " + name);
+    }
+}
+
+class Student {
+    int id;
+    String name;
+    Printer printer;
+
+    public Student(int id, String name, Printer printer) {
+        this.id = id;
+        this.name = name;
+        this.printer = printer;
+    }
+
+    void display() {
+        printer.print(id, name);
+    }
+}
+
+🧩 Step 2: Bean configuration (XML)
+<!-- beans.xml -->
+<beans>
+    <bean id="printer" class="ConsolePrinter"/>
+
+    <bean id="student" class="Student">
+        <constructor-arg value="10"/>
+        <constructor-arg value="Alice"/>
+        <constructor-arg ref="printer"/>
+    </bean>
+</beans>
+
+🧩 Step 3: Use ApplicationContext (NOT BeanFactory)
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+public class Main {
+    public static void main(String[] args) {
+
+        ApplicationContext context =
+            new ClassPathXmlApplicationContext("beans.xml");
+
+        Student s1 = context.getBean("student", Student.class);
+        s1.display();
+    }
+}
+
+🎯 What changed from BeanFactory?
+Aspect	BeanFactory	ApplicationContext
+Initialization	Lazy	Eager
+Bean creation	On demand	At startup
+Events	❌	✅
+AOP	❌	✅
+Annotations	❌	✅
+Real-world usage	Rare	Standard
