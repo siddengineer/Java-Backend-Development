@@ -1,0 +1,45 @@
+Types of DI
+Constructor Injection
+
+Dependencies are passed via the constructor.
+
+Best for mandatory dependencies.
+
+Promotes immutability.
+
+java
+public class Student {
+    private final Course course;
+
+    public Student(Course course) {
+        this.course = course;
+    }
+}
+Setter Injection
+
+Dependencies are injected via setter methods.
+
+Best for optional dependencies.
+
+Allows reconfiguration at runtime.
+
+java
+public class Student {
+    private Course course;
+
+    public void setCourse(Course course) {
+        this.course = course;
+    }
+}
+Field Injection
+
+Dependencies are injected directly into fields using reflection (@Autowired).
+
+Less preferred (harder to test, less explicit).
+
+java
+public class Student {
+    @Autowired
+    private Course course;
+}
+🔑 Takeaway
