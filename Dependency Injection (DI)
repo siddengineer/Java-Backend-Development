@@ -1,0 +1,49 @@
+What is Dependency Injection (DI)?
+
+Dependency Injection is a design pattern used to reduce coupling between objects. In Spring, DI is achieved through the IoC container, which manages dependencies and injects them into beans rather than having classes create or look them up themselves.
+
+Code Example: Constructor Injection
+java
+// Service dependency
+public class UserService {
+    public void registerUser(String name) {
+        System.out.println("User registered: " + name);
+    }
+}
+
+// Consumer class
+public class UserController {
+    private final UserService userService;
+
+    // Constructor Injection
+    public UserController(UserService userService) {
+        this.userService = userService;
+    }
+
+    public void process(String name) {
+        userService.registerUser(name);
+    }
+}
+
+// Configuration
+@Configuration
+public class AppConfig {
+    @Bean
+    public UserService userService() {
+        return new UserService();
+    }
+
+    @Bean
+    public UserController userController(UserService userService) {
+        return new UserController(userService);
+    }
+}
+
+// Run
+public class MainApp {
+    public static void main(String[] args) {
+        ApplicationContext context = new AnnotationConfigApplicationContext(AppConfig.class);
+        UserController controller = context.getBean(UserController.class);
+        controller.process("Siddharth");
+    }
+}
